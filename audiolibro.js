@@ -61,7 +61,7 @@ async function main(){
         headless: true 
     });
 
-    for(let i = 0; i < current_links.length; i++){
+    for(let i = 992; i < current_links.length; i++){
         try {
             await scraper_audio_libro(browser, current_links[i], path + `${i}.json`);
             console.log(`${i + 1}/${total} libros guardados`)
