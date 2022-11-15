@@ -1,9 +1,16 @@
-const playwright = require('playwright');
-const fs = require('fs');
+import playwright from 'playwright';
+import * as fs from 'fs';
+import { fileURLToPath } from 'url';
+import * as https from 'https';
+import fecth from 'node-fetch';
+import path from 'path';
+
+//const __filename = fileURLToPath(import.meta.url);
+//const __dirname = path.dirname(__filename);
 
 async function scraper_audio_libro(link_audio_libro, file) {
     const browser = await playwright.chromium.launch({
-        headless: true 
+        headless: false
     });
     const context = await browser.newContext();
     const page = await context.newPage();
@@ -54,7 +61,7 @@ function save(obj, file){
 
 async function main(){
     // Cambiar nombre de la carpeta
-    const path = './audiolibros/'
+    const urlAux  = './audiolibros/'
     const content = fs.readFileSync('allData.json', 'utf-8')
     
     let current_links = JSON.parse(content).data;
@@ -64,13 +71,13 @@ async function main(){
     //    headless: true 
     //});
 
-    for(let i = 992; i < current_links.length; i++){
+    for(let i = 0; i < current_links.length; i++){
         try {
-            await scraper_audio_libro(current_links[i], path + `${i}.json`);
-            console.log(`${i + 1}/${total} libros guardados`)
+            await scraper_audio_libro(current_links[i], urlAux  + `${i}.json`);
+            console.log(`${i}/${total} libros guardados`)
         } catch (error) {
             console.log(`Libro Nro. ${i} no fue guardado correctamente`);
-            console.log(error);
+            //console.err(error);
         }
     }
 
@@ -78,15 +85,43 @@ async function main(){
     await browser.close();
 }
 
-const aux = () => {
-	for (let i = 1; i < 2000; i++) {
+const aux = async () => {
+  const urlAux = './audiolibros/'
+  const content = fs.readFileSync('allData.json', 'utf-8')
+  let current_links = JSON.parse(content).data;
+  const total = current_links.length;
+	for (let i = 0; i < 2100; i++) {
 		try {
-    			const content = fs.readFileSync(`audiolibros/${i}.json`, 'utf-8')
+    	fs.readFileSync(`audiolibros/${i}.json`, 'utf-8')
 		} catch(err) {
-			console.log(i);
+      await scraper_audio_libro(current_links[i], urlAux  + `${i}.json`);
+      console.log(`${i}/${total} libros guardados`)
+      //console.log(i);
 		}
 	}
 }
 
+const getToken = async () => {
+  const cred = {
+    username: 'Creador',
+    password: 'forobeta12345',
+  }
+
+  const response = await fetch('https://www.descargaraudiolibro.com/wp-json/jwt-auth/v1/token', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'accept': 'application/json'
+    },
+    body: JSON.stringify(cred),
+  })
+
+  const token = await response.json();
+  console.log(token);
+  return token;
+}
+
 //main();
 aux();
+//const token = await getToken();
+//console.log(token);
