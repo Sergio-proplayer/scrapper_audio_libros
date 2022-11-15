@@ -10,7 +10,7 @@ import path from 'path';
 
 async function scraper_audio_libro(link_audio_libro, file) {
     const browser = await playwright.chromium.launch({
-        headless: false
+        headless: false,
     });
     const context = await browser.newContext();
     const page = await context.newPage();
@@ -90,7 +90,7 @@ const aux = async () => {
   const content = fs.readFileSync('allData.json', 'utf-8')
   let current_links = JSON.parse(content).data;
   const total = current_links.length;
-	for (let i = 0; i < 2100; i++) {
+	for (let i = 0; i < 4000; i++) {
 		try {
     	fs.readFileSync(`audiolibros/${i}.json`, 'utf-8')
 		} catch(err) {
