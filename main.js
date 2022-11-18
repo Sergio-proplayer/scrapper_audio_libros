@@ -143,6 +143,6 @@ const auxIngles = async () => {
 
 //main();
 //auxIngles();
-aux()
-//const token = await getToken();
-//console.log(token);
+//aux()
+const token = await getToken();
+console.log(token);
