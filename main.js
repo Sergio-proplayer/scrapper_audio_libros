@@ -121,7 +121,27 @@ const getToken = async () => {
   return token;
 }
 
+const auxIngles = async () => {
+  const urlAux = './audiolibros/'
+  const content = fs.readFileSync('allData.json', 'utf-8')
+  let current_links = JSON.parse(content).data;
+  const total = current_links.length;
+	for (let i = 0; i < 4000; i++) {
+		try {
+    	const data = fs.readFileSync(`audiolibros/${i}.json`, 'utf-8')
+      let content = JSON.parse(data);
+      let titulo = content.titulo;
+      titulo = titulo.replace(/ *\[[^\]]*]/g, '')
+      titulo = titulo.replace(/ *\([^)]*\) */g, "")
+      console.log(`${content.titulo} -> ${titulo}`);
+		} catch(err) {
+      console.log(`${i}/${total} Error`)
+      //console.log(i);
+		}
+	}
+}
+
 //main();
-aux();
+auxIngles();
 //const token = await getToken();
 //console.log(token);
