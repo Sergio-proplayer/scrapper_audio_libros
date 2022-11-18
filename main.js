@@ -90,13 +90,13 @@ const aux = async () => {
   const content = fs.readFileSync('allData.json', 'utf-8')
   let current_links = JSON.parse(content).data;
   const total = current_links.length;
-	for (let i = 0; i < 4000; i++) {
+	for (let i = 0; i < 18303; i++) {
 		try {
     	fs.readFileSync(`audiolibros/${i}.json`, 'utf-8')
 		} catch(err) {
-      await scraper_audio_libro(current_links[i], urlAux  + `${i}.json`);
+      //await scraper_audio_libro(current_links[i], urlAux  + `${i}.json`);
       console.log(`${i}/${total} libros guardados`)
-      //console.log(i);
+      console.log(i);
 		}
 	}
 }
@@ -142,6 +142,7 @@ const auxIngles = async () => {
 }
 
 //main();
-auxIngles();
+//auxIngles();
+aux()
 //const token = await getToken();
 //console.log(token);
