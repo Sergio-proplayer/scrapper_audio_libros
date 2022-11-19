@@ -75,7 +75,7 @@ async function main(n_file){
     <h2><strong>Enlace para descargar audiolibro ${data.titulo} completo gratis, en un unico enlace.</strong></h2>
     <strong>Español castellano:</strong>
     
-    <a href="${data.link_final}">CLICK AQUÍ PARA DESCARGAR AUDIOLIBRO COMPLETO</a>`
+    <a href="https://www.amazon.es/hz/audible/mlp/membership/plus?actionCode=AMSTM1450129210001&amp;tag=audiolibrogratis-21">CLICK AQUÍ PARA DESCARGAR AUDIOLIBRO COMPLETO</a>`
 
     const categories = allData.data.filter(a => data.link_init === a.url).map(a => a.category)
 
@@ -136,6 +136,6 @@ async function main(n_file){
   }
 }
 
-for (let i = 10; i < 18303; i++) {
+for (let i = 0; i < 18303; i++) {
   await main(i)
 }
